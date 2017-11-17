@@ -1,0 +1,9 @@
+.wp-user-groups-list li {
+	list-style: none;
+	border-bottom:1px solid #333;
+	padding:20px 0;
+}
+
+.wp-user-groups-list .user-avatar {
+	text-align: center;
+}
