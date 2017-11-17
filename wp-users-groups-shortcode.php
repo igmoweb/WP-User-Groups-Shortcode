@@ -9,7 +9,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-add_shortcode( 'wp_user_groups_list', 'wp_user_groups_shortcode_render' );
+add_action( 'plugins_loaded', 'wp_user_groups_shortcode_init' );
+function wp_user_groups_shortcode_init() {
+	if ( ! function_exists( 'wp_user_groups_get_asset_version' ) ) {
+		return;
+	}
+
+	add_shortcode( 'wp_user_groups_list', 'wp_user_groups_shortcode_render' );
+}
 
 /**
  * Render the user groups list shortcode
@@ -31,7 +38,7 @@ function wp_user_groups_shortcode_render( $atts ) {
 	 * Allow to override the user shortcode template
 	 */
 	$template = trailingslashit( plugin_dir_path( __FILE__ ) ) . 'user-template.php';
-	$template = apply_filters( 'wp_user_groups_list', $template );
+	$template = apply_filters( 'wp_user_groups_list_template_file', $template );
 
 	ob_start();
 	?>
